@@ -1,0 +1,89 @@
+.admin-users-container {
+    text-align: center;
+    padding: 20px;
+}
+
+.admin-users-table {
+    width: 100%;
+    max-width: 900px;
+    margin: 20px auto;
+    border-collapse: collapse;
+}
+
+.admin-users-table th, .admin-users-table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+}
+
+.admin-users-table th {
+    background-color: #007bff;
+    color: white;
+}
+
+.edit-btn, .delete-btn {
+    padding: 5px 10px;
+    border: none;
+    cursor: pointer;
+    margin: 0 5px;
+    border-radius: 5px;
+}
+
+.edit-btn {
+    background-color: #ffc107;
+    color: black;
+}
+
+.delete-btn {
+    background-color: #dc3545;
+    color: white;
+}
+
+.delete-btn:hover {
+    background-color: #b02a37;
+}
+.create-user-btn {
+    background-color: #28a745; /* Green color */
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.create-user-btn:hover {
+    background-color: #218838; /* Darker green */
+}
+
+.approve-btn {
+    background-color: #17a2b8; /* Cyan color */
+    color: white;
+    padding: 7px 12px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+.approve-btn:hover {
+    background-color: #138496; /* Darker cyan */
+}
+
+.reject-btn {
+    background-color: #dc3545; /* Red color */
+    color: white;
+    padding: 7px 12px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+.reject-btn:hover {
+    background-color: #b02a37; /* Darker red */
+}
+
