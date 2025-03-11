@@ -4,6 +4,7 @@ import { jwtDecode } from "jwt-decode";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
+import SearchBar from "../pages/SearchBar";
 
 function Navbar() {
     const navigate = useNavigate();
@@ -49,6 +50,13 @@ function Navbar() {
                 <a className="navbar-brand fw-bold text-uppercase text-light" href="#" onClick={() => navigate("/")}>
                     <i className="bi bi-shop me-2 text-warning"></i>MarketHub
                 </a>
+
+                {/* ✅ Display Search Bar only if the user is a Customer */}
+                {token && userRole === "customer" && (
+                    <div className="ms-auto me-auto">
+                        <SearchBar />
+                    </div>
+                )}
 
                 {/* Mobile Toggle Button */}
                 <button
@@ -104,12 +112,7 @@ function Navbar() {
                                         <i className="bi bi-cart me-1 text-danger"></i> Cart
                                     </a>
                                 </li>
-                                <li className="nav-item">
-                                    <a className="nav-link text-light fw-semibold" href="#" onClick={() => navigate("/browse-products")}>
-                                        <i className="bi bi-grid me-1 text-success"></i> Browse Products
-                                    </a>
-                                </li>
-                                {/* ✅ Live Chat only for Customers */}
+                               
                                 <li className="nav-item">
                                     <a className="nav-link text-light fw-semibold" href="#" onClick={() => navigate("/livechat")}>
                                         <i className="bi bi-chat-dots me-1 text-info"></i> Live Chat
@@ -130,15 +133,6 @@ function Navbar() {
                             <li className="nav-item">
                                 <a className="nav-link text-light fw-semibold" href="#" onClick={() => navigate("/admin")}>
                                     <i className="bi bi-shield-lock me-1 text-danger"></i> Admin Dashboard
-                                </a>
-                            </li>
-                        )}
-
-                        {/* 📌 FAQs Link for Admin & Customer */}
-                        {token && (userRole === "admin" || userRole === "customer") && (
-                            <li className="nav-item">
-                                <a className="nav-link text-light fw-semibold" href="#" onClick={() => navigate("admin/faqs")}>
-                                    <i className="bi bi-question-circle me-1 text-info"></i> FAQs
                                 </a>
                             </li>
                         )}

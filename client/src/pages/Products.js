@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Container, Grid, Card, CardMedia, CardContent, Typography, CircularProgress, Alert, Button } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 
 function Products() {
@@ -9,7 +9,7 @@ function Products() {
     const [error, setError] = useState("");
     const [cartMessage, setCartMessage] = useState(""); // ✅ Success/Error Message for Cart
     const navigate = useNavigate();
-    
+
     useEffect(() => {
         const token = localStorage.getItem("token");
         if (!token) {
@@ -72,16 +72,27 @@ function Products() {
                             <CardContent>
                                 <Typography variant="h6">{product.name}</Typography>
                                 <Typography color="textSecondary">${product.price}</Typography>
-                                
+
                                 {/* ✅ Add to Cart Button */}
                                 <Button
                                     variant="contained"
                                     color="primary"
-                                    sx={{ marginTop: "10px" }}
+                                    sx={{ marginTop: "10px", marginRight: "10px" }}
                                     onClick={() => addToCart(product._id)}
                                 >
                                     🛒 Add to Cart
                                 </Button>
+
+                                {/* ✅ View Details Link */}
+                                <Link to={`/product/${product._id}`}>
+                                    <Button
+                                        variant="outlined"
+                                        color="secondary"
+                                        sx={{ marginTop: "10px" }}
+                                    >
+                                        📄 View Details
+                                    </Button>
+                                </Link>
                             </CardContent>
                         </Card>
                     </Grid>

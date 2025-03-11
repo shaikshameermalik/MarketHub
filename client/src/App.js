@@ -19,6 +19,10 @@ import Notifications from "./pages/Notifications";
 import FAQPage from "./pages/FAQPage";
 import LiveChat from "./components/LiveChat";
 import VendorSalesReport from "./pages/VendorSalesReport";
+import ProductDetails from "./pages/ProductDetails";
+import Footer from "./components/Footer";
+import { Terms, PrivacyPolicy, ContactUs } from './pages/TermsPrivacyContact';
+
 
 
 const Products = lazy(() => import("./pages/Products"));
@@ -64,8 +68,13 @@ function App() {
                     <Route path="admin/faqs" element={<FAQPage />} />
                     <Route path="/livechat" element={<LiveChat />} />
                     <Route path="/vendor/sales-report/:vendorId" element={<VendorSalesReport />} />
+                    <Route path="/product/:id" element={<ProductDetails />} />
+                    <Route path="/terms" element={<Terms />} />
+                    <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+                    <Route path="/contact-us" element={<ContactUs />} />
                 </Routes>
             </Suspense>
+            <Footer />
         </BrowserRouter>
     );
 }

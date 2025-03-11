@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const Product = require("../models/Product");
+const Review = require("../models/Review");
 const authMiddleware = require("../middleware/authMiddleware"); // ✅ Import authentication middleware
 
 const router = express.Router();
@@ -28,6 +29,25 @@ router.get("/", authMiddleware, async (req, res) => {
     }
 });
 
+// ✅ Search Products by Query (Public Access)
+router.get("/search", async (req, res) => {
+    const { query } = req.query;
+    console.log(`🔍 Searching products for: ${query}`);
+
+    try {
+        const products = await Product.find({
+            $or: [
+                { name: { $regex: query, $options: "i" } },
+                { category: { $regex: query, $options: "i" } }
+            ]
+        }).limit(10);
+
+        res.status(200).json(products);
+    } catch (error) {
+        console.error("❌ Search error:", error);
+        res.status(500).json({ message: "Server error" });
+    }
+});
 
 router.get("/:id", async (req, res) => {
     try {
@@ -128,5 +148,42 @@ router.delete("/:id", authMiddleware, async (req, res) => {
         res.status(500).json({ message: "Server error" });
     }
 });
+
+
+// ✅ 🚀 Get Product Details with Reviews (Public Access)
+router.get("/details/:productId", async (req, res) => {
+    try {
+        const { productId } = req.params;
+        console.log(`🔍 Fetching product details and reviews for ID: ${productId}`);
+
+        // ✅ Validate ObjectId
+        if (!mongoose.Types.ObjectId.isValid(productId)) {
+            return res.status(400).json({ message: "Invalid product ID" });
+        }
+
+        // ✅ Fetch Product Details
+        const product = await Product.findById(productId);
+        if (!product) {
+            return res.status(404).json({ message: "Product not found" });
+        }
+
+        // ✅ Fetch All Reviews for this Product
+        const reviews = await Review.find({ productId })
+            .populate("customerId", "name");
+
+        // ✅ Response with Product + Reviews
+        res.status(200).json({
+            product,
+            reviews
+        });
+
+    } catch (error) {
+        console.error("❌ Error fetching product details:", error);
+        res.status(500).json({ message: "Server error" });
+    }
+});
+
+
+
 
 module.exports = router;
